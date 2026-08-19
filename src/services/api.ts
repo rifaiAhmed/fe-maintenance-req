@@ -48,6 +48,7 @@ export const api = {
   users: (params: Record<string, string | number | undefined> = {}) => request<ApiUser[]>(`/users${queryString(params)}`),
   user: (id: number) => request<ApiUser>(`/users/${id}`),
   updateUser: (id: number, data: object) => request<ApiUser>(`/users/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
+  createUser: (data: { name: string; email: string; password: string; role: string; status: string }) => request<ApiUser>('/users', { method: 'POST', body: JSON.stringify(data) }),
 }
 
 export interface ApiUser { id: number; name: string; email: string; role: 'Admin' | 'Supervisor' | 'Operator'; status: 'Active' | 'Inactive'; createdAt: string; updatedAt: string }

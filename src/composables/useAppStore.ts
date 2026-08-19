@@ -1,6 +1,6 @@
 import { computed, reactive } from 'vue'
 import { api, session, type ApiRequest, type ApiUser } from '../services/api'
-import type { MaintenanceRequest, RequestPriority, User } from '../types'
+import type { MaintenanceRequest, RequestPriority, User, UserRole, UserStatus } from '../types'
 
 const placeholderUser: User = { id: 0, name: 'User', email: '', role: 'Operator', status: 'Active', initials: 'U', avatarColor: '#d7e9f8', createdAt: '' }
 const state = reactive({ requests: [] as MaintenanceRequest[], users: [] as User[], currentUser: placeholderUser, dashboardCounts: { total: 0, submitted: 0, approved: 0, rejected: 0 }, loading: false, initialized: false })
@@ -27,5 +27,6 @@ export function useAppStore() {
   async function reviewRequest(id: string, status: 'Approved' | 'Rejected') { const response = await api.reviewRequest(id, status); const request = toRequest(response.data); const index = state.requests.findIndex((item) => item.id === id); if (index >= 0) state.requests[index] = request; await fetchDashboard() }
   async function deleteRequest(id: string) { await api.deleteRequest(id); state.requests = state.requests.filter((request) => request.id !== id); await fetchDashboard() }
   async function updateUser(id: number, updates: Partial<User>) { const response = await api.updateUser(id, updates); const user = toUser(response.data); const index = state.users.findIndex((item) => item.id === id); if (index >= 0) state.users[index] = user }
-  return { state, requestCount, getRequest, getUser, initialize, login, logout, fetchRequests, fetchRequest, fetchUsers, fetchUser, addRequest, updateRequest, reviewRequest, deleteRequest, updateUser }
+  async function createUser(payload: { name: string; email: string; password: string; role: UserRole; status: UserStatus }) { const response = await api.createUser(payload); const user = toUser(response.data); state.users.push(user); return user }
+  return { state, requestCount, getRequest, getUser, initialize, login, logout, fetchRequests, fetchRequest, fetchUsers, fetchUser, addRequest, updateRequest, reviewRequest, deleteRequest, updateUser, createUser }
 }
