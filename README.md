@@ -50,7 +50,7 @@ Konfigurasi default sudah tersedia di `docker-compose.yml`, sehingga aplikasi bi
 
 | Variabel | Default | Keterangan |
 |---|---|---|
-| `FRONTEND_PORT` | `5173` | Port frontend yang diekspos pada host |
+| `FRONTEND_PORT` | `5176` | Port frontend yang diekspos pada host |
 | `VITE_API_URL` | `http://localhost:9001/api` | URL API yang ditanam ke bundle saat image dibangun |
 
 Untuk menggunakan nilai lain, salin file contoh:
@@ -85,7 +85,7 @@ docker compose ps
 Uji respons frontend:
 
 ```bash
-curl --fail http://localhost:5173/
+curl --fail http://localhost:5176/
 ```
 
 Konfigurasi Nginx menggunakan fallback ke `index.html`, sehingga URL Vue Router seperti `/login`, `/dashboard`, dan `/requests` tetap dapat dibuka atau di-refresh secara langsung.
