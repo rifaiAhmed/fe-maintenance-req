@@ -9,7 +9,7 @@ withDefaults(defineProps<{ requests: MaintenanceRequest[]; compact?: boolean }>(
 <template>
   <div class="table-scroll">
     <table class="data-table">
-      <thead><tr><th>Request ID</th><th>Machine / Asset ID</th><th>Problem Description</th><th>Priority</th><th>Status</th><th v-if="compact">Created By</th><th>Created At</th><th v-if="compact">Action</th></tr></thead>
+      <thead><tr><th>Request ID</th><th>Machine / Asset ID</th><th>Problem Description</th><th>Priority</th><th>Status</th><th v-if="compact">Created By</th><th>Created At</th><th>Action</th></tr></thead>
       <tbody>
         <tr v-for="request in requests" :key="request.id">
           <td><RouterLink class="table-link table-id" :to="`/requests/${request.id}`">{{ request.id }}</RouterLink></td>
@@ -19,9 +19,9 @@ withDefaults(defineProps<{ requests: MaintenanceRequest[]; compact?: boolean }>(
           <td><StatusBadge :label="request.status" /></td>
           <td v-if="compact">{{ request.createdBy }}</td>
           <td>{{ request.createdAt }}</td>
-          <td v-if="compact"><RouterLink class="table-link" :to="`/requests/${request.id}`">{{ request.status === 'Submitted' ? 'Review' : 'View' }}</RouterLink></td>
+          <td><RouterLink class="table-link" :to="`/requests/${request.id}`">{{ request.status === 'Submitted' ? 'Review' : 'View' }}</RouterLink></td>
         </tr>
-        <tr v-if="requests.length === 0"><td :colspan="compact ? 8 : 6" class="empty-state">No requests match your filters.</td></tr>
+        <tr v-if="requests.length === 0"><td :colspan="compact ? 8 : 7" class="empty-state">No requests match your filters.</td></tr>
       </tbody>
     </table>
   </div>
