@@ -6,5 +6,5 @@ services:
       args:
         VITE_API_URL: ${VITE_API_URL:-http://localhost:9001/api}
     ports:
-      - "${FRONTEND_PORT:-5173}:80"
+      - "${FRONTEND_PORT:-5176}:80"
     restart: unless-stopped

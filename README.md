@@ -22,7 +22,7 @@ docker compose up --build
 
 Setelah container berstatus sehat, buka:
 
-- Frontend: http://localhost:5173
+- Frontend: http://localhost:5176
 - Backend API default: http://localhost:9001/api
 
 Untuk menjalankan di background:
